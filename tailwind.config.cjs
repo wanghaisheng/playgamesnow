@@ -41,8 +41,8 @@ module.exports = {
           7: "#D1D5DB",
           8: "#E5E7EB",
         },
-        primary: "#3758F9",
-        "blue-dark": "#1B44C8",
+        primary: "#E91E63", // A nice pink color
+        "blue-dark": "#D81B60", // A darker shade of pink
         secondary: "#13C296",
         "body-color": "#637381",
         "body-secondary": "#8899A8",
