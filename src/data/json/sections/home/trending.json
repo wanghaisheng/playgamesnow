@@ -1,0 +1,12 @@
+{
+  "id": "trending-games",
+  "type": "gameRow",
+  "sectionMeta": {
+    "layout": "single",
+    "title": "Trending Games",
+    "badge": "HOT",
+    "viewMoreLink": "/trending",
+    "autoScroll": true
+  },
+  "gameRefs": ["bloxd", "minecraft", "among-us"]
+}

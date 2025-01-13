@@ -1,0 +1,200 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import type { GameRowSection } from '../content.config';
+
+interface Props {
+  data: CollectionEntry<'sections'>;
+}
+
+const { data } = Astro.props;
+const { sectionMeta, items } = data.data;
+const isMultipleRows = sectionMeta.layout === 'multiple';
+
+// Helper function to render a single row
+const renderRow = (
+  games: typeof items extends Array<infer T> ? T : never,
+  meta: {
+    title: string;
+    badge?: string;
+    viewMoreLink?: string;
+    autoScroll?: boolean;
+    scrollInterval?: number;
+  },
+  rowId: string
+) => {
+  return (
+    <div class="mb-16 last:mb-0">
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-3">
+          {meta.badge && (
+          <span class="px-3 py-1 text-xs font-semibold text-white bg-primary rounded-full">
+              {meta.badge}
+          </span>
+        )}
+        <h2 class="text-2xl font-bold text-dark dark:text-white">
+            {meta.title}
+        </h2>
+                    </div>
+        {meta.viewMoreLink && (
+          <a 
+            href={meta.viewMoreLink}
+        class="flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-dark"
+      >
+        View All
+            <Icon name="ph:arrow-right" class="w-4 h-4" />
+      </a>
+                )}
+  </div>
+
+      <div class="relative">
+        <!-- Navigation Buttons -->
+        <button 
+          class="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/80 dark:bg-dark-2/80 text-dark dark:text-white hover:bg-primary hover:text-white -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+          data-slide="prev"
+          data-row={rowId}
+        >
+          <Icon name="ph:caret-left-bold" class="w-6 h-6" />
+        </button>
+
+        <button 
+          class="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/80 dark:bg-dark-2/80 text-dark dark:text-white hover:bg-primary hover:text-white translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+          data-slide="next"
+          data-row={rowId}
+        >
+          <Icon name="ph:caret-right-bold" class="w-6 h-6" />
+        </button>
+
+        <!-- Games Container -->
+        <div 
+          class="group flex gap-6 overflow-x-auto hide-scrollbar pb-4 scroll-smooth"
+          data-games-container={rowId}
+        >
+          {games.map((game) => (
+            <div class="flex-shrink-0 w-[280px]">
+              <div class="relative overflow-hidden rounded-lg bg-white dark:bg-dark-2 shadow-1 hover:shadow-3 dark:shadow-card dark:hover:shadow-3 transition-all duration-300">
+                <a href={game.href} class="relative block">
+                  <img
+                    src={game.image}
+                    alt={game.title}
+                    class="w-full h-[160px] object-cover"
+                    loading="lazy"
+                  />
+                  {game.badge && (
+                    <span class="absolute top-3 left-3 px-2 py-1 text-xs font-semibold text-white bg-primary rounded-full">
+                      {game.badge}
+                      </span>
+                  )}
+                  <div class="absolute top-3 right-3 flex gap-2">
+                    {game.platforms.map(platform => (
+                      <span class="w-6 h-6 flex items-center justify-center rounded-full bg-dark/80 text-white">
+                        <Icon name={`ph:${platform}`} class="w-4 h-4" />
+                      </span>
+                    ))}
+                </div>
+                </a>
+                <div class="p-4">
+                  <h3 class="text-lg font-bold text-dark dark:text-white">
+                    <a href={game.href} class="hover:text-primary">
+                      {game.title}
+                    </a>
+                  </h3>
+                  <div class="mt-2 flex items-center justify-between">
+                    {game.rating && (
+                      <div class="flex items-center">
+                        <Icon name="ph:star" class="w-4 h-4 text-yellow-500" />
+                        <span class="ml-1 text-sm text-dark dark:text-dark-6">
+                          {game.rating}
+                        </span>
+      </div>
+                    )}
+                    {game.playCount && (
+                      <div class="flex items-center text-sm text-body-color dark:text-dark-6">
+                        <Icon name="ph:gamepad" class="w-4 h-4 mr-1" />
+                        {new Intl.NumberFormat('en-US', { notation: 'compact' }).format(game.playCount)}
+    </div>
+                    )}
+  </div>
+</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+---
+
+<section class="py-20 bg-white dark:bg-dark overflow-hidden">
+  <div class="container">
+    {isMultipleRows ? (
+      items.map((row: any) => 
+        renderRow(
+          row.games,
+          sectionMeta.rows?.find(r => r.rowId === row.rowId) || {},
+          row.rowId
+        )
+      )
+    ) : (
+      renderRow(
+        items as any,
+        {
+          title: sectionMeta.sectionTitle || '',
+          badge: sectionMeta.badge,
+          viewMoreLink: sectionMeta.viewMoreLink,
+          autoScroll: sectionMeta.autoScroll,
+          scrollInterval: sectionMeta.scrollInterval
+        },
+        'single-row'
+      )
+    )}
+  </div>
+</section>
+<style>
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  [data-games-container] > div {
+    scroll-snap-align: start;
+  }
+</style>
+
+<script>
+function initializeRow(rowId: string) {
+  const container = document.querySelector(`[data-games-container="${rowId}"]`);
+  const prevBtn = document.querySelector(`[data-slide="prev"][data-row="${rowId}"]`);
+  const nextBtn = document.querySelector(`[data-slide="next"][data-row="${rowId}"]`);
+  
+  if (!container || !prevBtn || !nextBtn) return;
+
+  const scroll = (direction: 'prev' | 'next') => {
+    const scrollAmount = direction === 'next' ? 280 + 24 : -(280 + 24);
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  };
+
+  prevBtn.addEventListener('click', () => scroll('prev'));
+  nextBtn.addEventListener('click', () => scroll('next'));
+
+  // Optional: Add scroll event listener to update button visibility
+  container.addEventListener('scroll', () => {
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    prevBtn.style.opacity = scrollLeft > 0 ? '1' : '0';
+    nextBtn.style.opacity = scrollLeft < scrollWidth - clientWidth ? '1' : '0';
+  });
+}
+
+// Initialize all rows
+document.querySelectorAll('[data-games-container]').forEach(container => {
+  const rowId = container.getAttribute('data-games-container');
+  if (rowId) initializeRow(rowId);
+});
+</script>

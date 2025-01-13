@@ -1,0 +1,43 @@
+{
+  "id": "home-team",
+  "type": "team",
+  "sectionMeta": {
+    "sectionTitle": "Our Team",
+    "sectionHeading": "Meet Our Experts",
+    "sectionDescription": "We have a team of experienced professionals dedicated to delivering the best solutions."
+  },
+  "items": [
+    {
+      "id": "team-01",
+      "name": "David Miller",
+      "position": "CEO & Founder",
+      "image": "assets/team/team-01.jpg",
+      "socials": [
+        {
+          "name": "twitter",
+          "url": "https://twitter.com/username"
+        },
+        {
+          "name": "linkedin",
+          "url": "https://linkedin.com/in/username"
+        }
+      ]
+    },
+    {
+      "id": "team-02",
+      "name": "Emily Wilson",
+      "position": "Product Manager",
+      "image": "assets/team/team-02.jpg",
+      "socials": [
+        {
+          "name": "twitter",
+          "url": "https://twitter.com/username"
+        },
+        {
+          "name": "linkedin",
+          "url": "https://linkedin.com/in/username"
+        }
+      ]
+    }
+  ]
+}

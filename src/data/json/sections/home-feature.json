@@ -1,0 +1,27 @@
+{
+  "id": "features",
+  "type": "features",
+  "sectionMeta": {
+    "sectionTitle": "Features",
+    "sectionHeading": "Main Features & Benefits",
+    "sectionDescription": "Discover the powerful features that make our platform stand out from the competition."
+  },
+  "items": [
+    {
+      "id": "feature-1",
+      "icon": "<svg width='36' height='36' viewBox='0 0 36 36' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M28.5 7.5H7.5C6.675 7.5 6 8.175 6 9V21C6 21.825 6.675 22.5 7.5 22.5H28.5C29.325 22.5 30 21.825 30 21V9C30 8.175 29.325 7.5 28.5 7.5ZM28.5 21H7.5V9H28.5V21Z' fill='white'/><path d='M18 18C19.6569 18 21 16.6569 21 15C21 13.3431 19.6569 12 18 12C16.3431 12 15 13.3431 15 15C15 16.6569 16.3431 18 18 18Z' fill='white'/></svg>",
+      "title": "Responsive Design",
+      "refTitle": "Learn More",
+      "ref": "/features/responsive",
+      "description": "Our platform is fully responsive and works seamlessly across all devices and screen sizes."
+    },
+    {
+      "id": "feature-2",
+      "icon": "<svg width='36' height='36' viewBox='0 0 36 36' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M15 25.5C15.825 25.5 16.5 24.825 16.5 24V12C16.5 11.175 15.825 10.5 15 10.5H7.5C6.675 10.5 6 11.175 6 12V24C6 24.825 6.675 25.5 7.5 25.5H15ZM7.5 12H15V24H7.5V12Z' fill='white'/><path d='M28.5 25.5C29.325 25.5 30 24.825 30 24V12C30 11.175 29.325 10.5 28.5 10.5H21C20.175 10.5 19.5 11.175 19.5 12V24C19.5 24.825 20.175 25.5 21 25.5H28.5ZM21 12H28.5V24H21V12Z' fill='white'/></svg>",
+      "title": "Modern Technology",
+      "refTitle": "View Details",
+      "ref": "/features/technology",
+      "description": "Built with the latest technology stack ensuring fast, secure, and scalable applications."
+    }
+  ]
+}

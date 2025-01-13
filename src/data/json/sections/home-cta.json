@@ -1,0 +1,8 @@
+{
+  "id": "home-cta",
+  "type": "cta",
+  "title": "Ready to Get Started?",
+  "description": "Join thousands of satisfied users who are already using our template to build amazing websites.",
+  "buttonText": "Start Free Trial",
+  "buttonLink": "/trial"
+}

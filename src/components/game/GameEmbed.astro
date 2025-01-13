@@ -1,0 +1,229 @@
+---
+import type { GameEmbed } from '../../schemas/embed.schema';
+import { Icon } from 'astro-icon';
+
+interface Props {
+  data: GameEmbed;
+  class?: string;
+}
+
+const { data, class: className } = Astro.props;
+const { config, controls, api, analytics, error } = data;
+---
+
+<div 
+  id={`game-embed-${data.id}`} 
+  class:list={[
+    'game-embed-container relative',
+    config.responsive ? 'aspect-video w-full' : '',
+    className
+  ]}
+  data-game-id={data.id}
+  data-analytics={analytics?.enabled}
+  data-api={api?.enabled}
+>
+  <!-- Loading Overlay -->
+  <div class="game-loading absolute inset-0 bg-dark/80 flex items-center justify-center">
+    <div class="loading-spinner">
+      <Icon name="loading" class="w-8 h-8 text-primary animate-spin" />
+    </div>
+  </div>
+
+  <!-- Error Overlay -->
+  {error?.showError && (
+    <div class="game-error hidden absolute inset-0 bg-dark/90 flex flex-col items-center justify-center">
+      <Icon name="warning" class="w-12 h-12 text-red-500 mb-4" />
+      <p class="text-white text-center px-4"></p>
+      <button class="retry-button mt-4 px-4 py-2 bg-primary text-white rounded-lg">
+        Retry
+      </button>
+    </div>
+  )}
+
+  <!-- Game Controls -->
+  {controls.enabled && (
+    <div 
+      class:list={[
+        'game-controls absolute z-10 flex items-center gap-2 p-2',
+        {
+          'top-0': controls.position === 'top',
+          'bottom-0': controls.position === 'bottom'
+        },
+        controls.theme?.background ?? 'bg-dark/80'
+      ]}
+    >
+      {controls.sound && (
+        <button
+          class="control-button"
+          data-control="sound"
+          title="Toggle sound"
+        >
+          <Icon name="volume-up" class="w-5 h-5 text-white" />
+        </button>
+      )}
+      
+      {controls.fullscreen && (
+        <button
+          class="control-button"
+          data-control="fullscreen"
+          title="Toggle fullscreen"
+        >
+          <Icon name="expand" class="w-5 h-5 text-white" />
+        </button>
+      )}
+
+      {controls.custom?.map((control) => (
+        <button
+          class="control-button"
+          data-control={control.id}
+          title={control.tooltip}
+        >
+          <Icon name={control.icon} class="w-5 h-5 text-white" />
+        </button>
+      ))}
+    </div>
+  )}
+
+  <!-- Game Iframe -->
+  <iframe
+    src={config.url}
+    width={config.width}
+    height={config.height}
+    title={config.title}
+    loading={config.loading}
+    referrerpolicy={config.referrerPolicy}
+    sandbox={config.sandbox.join(' ')}
+    allow={`fullscreen ${config.allowFullscreen ? '; autoplay' : ''}`}
+    class:list={[
+      'game-iframe',
+      config.responsive ? 'absolute inset-0 w-full h-full' : ''
+    ]}
+  />
+</div>
+
+<script>
+  class GameEmbedController {
+    private container: HTMLElement;
+    private iframe: HTMLIFrameElement;
+    private loadingOverlay: HTMLElement;
+    private errorOverlay: HTMLElement;
+    private retryButton: HTMLButtonElement | null;
+    private controls: NodeListOf<HTMLButtonElement>;
+    private retryAttempts: number = 0;
+    private maxRetries: number;
+    private retryDelay: number;
+
+    constructor(container: HTMLElement) {
+      this.container = container;
+      this.iframe = container.querySelector('.game-iframe')!;
+      this.loadingOverlay = container.querySelector('.game-loading')!;
+      this.errorOverlay = container.querySelector('.game-error')!;
+      this.retryButton = container.querySelector('.retry-button');
+      this.controls = container.querySelectorAll('.control-button');
+      
+      // Get config from data attributes
+      const gameId = container.dataset.gameId;
+      const config = window.__GAME_CONFIG__?.[gameId] ?? {};
+      this.maxRetries = config.error?.retryAttempts ?? 3;
+      this.retryDelay = config.error?.retryDelay ?? 1000;
+
+      this.init();
+    }
+
+    private init() {
+      this.setupIframeListeners();
+      this.setupControlListeners();
+      this.setupRetryButton();
+    }
+
+    private setupIframeListeners() {
+      this.iframe.addEventListener('load', () => {
+        this.loadingOverlay.classList.add('hidden');
+      });
+
+      this.iframe.addEventListener('error', () => {
+        this.handleError();
+      });
+    }
+
+    private setupControlListeners() {
+      this.controls.forEach(button => {
+        button.addEventListener('click', () => {
+          const control = button.dataset.control;
+          switch (control) {
+            case 'sound':
+              this.toggleSound();
+              break;
+            case 'fullscreen':
+              this.toggleFullscreen();
+              break;
+            default:
+              this.handleCustomControl(control!);
+          }
+        });
+      });
+    }
+
+    private setupRetryButton() {
+      this.retryButton?.addEventListener('click', () => {
+        this.retryLoad();
+      });
+    }
+
+    private toggleSound() {
+      // Implement sound toggle logic
+    }
+
+    private toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        this.container.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    private handleCustomControl(controlId: string) {
+      // Implement custom control logic
+    }
+
+    private handleError() {
+      this.loadingOverlay.classList.add('hidden');
+      this.errorOverlay.classList.remove('hidden');
+      this.retryAttempts++;
+    }
+
+    private retryLoad() {
+      if (this.retryAttempts <= this.maxRetries) {
+        this.errorOverlay.classList.add('hidden');
+        this.loadingOverlay.classList.remove('hidden');
+        setTimeout(() => {
+          this.iframe.src = this.iframe.src;
+        }, this.retryDelay);
+      }
+    }
+  }
+
+  // Initialize all game embeds on the page
+  document.querySelectorAll('.game-embed-container').forEach(container => {
+    new GameEmbedController(container as HTMLElement);
+  });
+</script>
+
+<style>
+  .game-embed-container {
+    background: theme(colors.dark.DEFAULT);
+  }
+
+  .control-button {
+    @apply p-2 rounded-lg hover:bg-white/20 transition-colors;
+  }
+
+  .game-loading,
+  .game-error {
+    @apply transition-opacity duration-300;
+  }
+
+  .hidden {
+    @apply opacity-0 pointer-events-none;
+  }
+</style>

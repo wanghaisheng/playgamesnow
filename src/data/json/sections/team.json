@@ -1,0 +1,53 @@
+{
+  "id": "team",
+  "type": "team",
+  "sectionMeta": {
+    "sectionTitle": "Our Team",
+    "sectionHeading": "Meet Our Awesome Team",
+    "sectionDescription": "Meet the talented individuals who make our company great. Each member brings unique skills and expertise to the table."
+  },
+  "items": [
+    {
+      "name": "John Doe",
+      "position": "CEO & Founder",
+      "image": "/assets/team/member-1.jpg",
+      "socials": [
+        {
+          "name": "facebook",
+          "url": "https://facebook.com/johndoe"
+        },
+        {
+          "name": "twitter",
+          "url": "https://twitter.com/johndoe"
+        },
+        {
+          "name": "instagram",
+          "url": "https://instagram.com/johndoe"
+        },
+        {
+          "name": "linkedin",
+          "url": "https://linkedin.com/in/johndoe"
+        }
+      ]
+    },
+    {
+      "name": "Jane Smith",
+      "position": "Product Designer",
+      "image": "/assets/team/member-2.jpg",
+      "socials": [
+        {
+          "name": "twitter",
+          "url": "https://twitter.com/janesmith"
+        },
+        {
+          "name": "instagram",
+          "url": "https://instagram.com/janesmith"
+        },
+        {
+          "name": "linkedin",
+          "url": "https://linkedin.com/in/janesmith"
+        }
+      ]
+    }
+  ]
+}

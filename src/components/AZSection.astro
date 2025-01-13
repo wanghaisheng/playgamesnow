@@ -1,0 +1,66 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { AZSection } from '../content.config';
+
+interface Props {
+  data: CollectionEntry<'sections'>;
+}
+
+const { data } = Astro.props;
+const { sectionMeta, groups } = data.data;
+const {
+  columns = { sm: 1, md: 2, lg: 3, xl: 4 },
+  showCount = true
+} = sectionMeta;
+---
+
+<section class="py-20 bg-white dark:bg-dark">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="mx-auto mb-12 max-w-[510px] text-center">
+      <h2 class="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px]">
+        {sectionMeta.sectionTitle}
+      </h2>
+      {sectionMeta.sectionDescription && (
+        <p class="text-base text-body-color dark:text-dark-6">
+          {sectionMeta.sectionDescription}
+        </p>
+      )}
+    </div>
+
+    <!-- A-Z Groups -->
+    <div class="grid gap-8"
+      style={`
+        grid-template-columns: repeat(${columns.sm}, 1fr);
+        @media (min-width: 768px) { grid-template-columns: repeat(${columns.md}, 1fr); }
+        @media (min-width: 1024px) { grid-template-columns: repeat(${columns.lg}, 1fr); }
+        @media (min-width: 1280px) { grid-template-columns: repeat(${columns.xl}, 1fr); }
+      `}
+    >
+      {groups.map((group) => (
+        <div class="group-letter">
+          <h3 class="text-2xl font-bold text-primary mb-4">
+            {group.letter}
+          </h3>
+          <div class="space-y-2">
+            {group.tags.map((tag) => (
+              <a
+                href={tag.href}
+                class="flex items-center justify-between py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-dark-2 transition-colors"
+              >
+                <span class="text-dark dark:text-dark-6 hover:text-primary">
+                  {tag.name}
+                </span>
+                {showCount && (
+                  <span class="text-sm text-body-color dark:text-dark-6 bg-gray-100 dark:bg-dark-2 px-2 py-1 rounded-full">
+                    {tag.count}
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,19 @@
+---
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+
+const icons = {
+  'open-source': await import('../assets/icons/features/open-source.svg?raw'),
+  'customizable': await import('../assets/icons/features/customizable.svg?raw'),
+  'updates': await import('../assets/icons/features/updates.svg?raw'),
+  'support': await import('../assets/icons/features/support.svg?raw'),
+};
+
+const svg = icons[name] || '';
+---
+
+<span class={className} set:html={svg} />

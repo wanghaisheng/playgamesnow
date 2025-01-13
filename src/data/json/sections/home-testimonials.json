@@ -1,0 +1,25 @@
+{
+  "id": "home-testimonials",
+  "type": "testimonials",
+  "sectionMeta": {
+    "sectionTitle": "Testimonials",
+    "sectionHeading": "What Our Users Say",
+    "sectionDescription": "Here's what our satisfied customers have to say about their experience with our product."
+  },
+  "items": [
+    {
+      "id": "testimonial-01",
+      "content": "This template is amazing! The code is clean and well-organized. It saved me so much time in development.",
+      "author": "John Doe",
+      "position": "Frontend Developer",
+      "image": "assets/testimonials/author-01.jpg"
+    },
+    {
+      "id": "testimonial-02",
+      "content": "The customer support is outstanding. They helped me customize the template to my needs quickly.",
+      "author": "Sarah Smith",
+      "position": "UX Designer",
+      "image": "assets/testimonials/author-02.jpg"
+    }
+  ]
+}

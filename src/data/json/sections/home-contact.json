@@ -1,0 +1,14 @@
+{
+  "id": "home-contact",
+  "type": "contact",
+  "sectionMeta": {
+    "sectionTitle": "Contact Us",
+    "sectionHeading": "Get in Touch",
+    "sectionDescription": "Have questions? We're here to help. Send us a message and we'll respond as soon as possible."
+  },
+  "contactInfo": {
+    "address": "123 Business Street, New York, NY 10001",
+    "phone": "+1 (234) 567-89-00",
+    "email": "info@yourdomain.com"
+  }
+}

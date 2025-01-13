@@ -1,0 +1,120 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import LocationIcon from './icons/LocationIcon.astro';
+import PhoneIcon from './icons/PhoneIcon.astro';
+import EmailIcon from './icons/EmailIcon.astro';
+
+interface Props {
+  data: CollectionEntry<'sections'>;
+}
+
+const { data } = Astro.props;
+const { sectionMeta, items } = data.data;
+---
+
+<section id="contact" class="relative z-10 overflow-hidden bg-white dark:bg-dark py-20 lg:py-[120px]">
+  <div class="container">
+    <div class="flex flex-wrap -mx-4 lg:justify-between">
+      <div class="w-full px-4 lg:w-1/2 xl:w-6/12">
+        <div class="mb-12 max-w-[570px] lg:mb-0">
+          <span class="block mb-4 text-base font-semibold text-primary">
+            {sectionMeta.sectionTitle}
+          </span>
+          <h2 class="mb-6 text-[32px] font-bold uppercase text-dark dark:text-white sm:text-[40px] lg:text-[36px] xl:text-[40px]">
+            {sectionMeta.sectionHeading}
+          </h2>
+          <p class="text-base leading-relaxed mb-9 text-body-color dark:text-dark-6">
+            {sectionMeta.sectionDescription}
+          </p>
+
+          {/* Contact Info Items */}
+          <div class="mb-8 flex w-full max-w-[370px]">
+            <div class="bg-primary/5 text-primary mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded">
+              <LocationIcon class="fill-current" />
+            </div>
+            <div class="w-full">
+              <h4 class="mb-1 text-xl font-bold text-dark dark:text-white">Our Location</h4>
+              <p class="text-base text-body-color dark:text-dark-6">{items.address}</p>
+            </div>
+          </div>
+
+          <div class="mb-8 flex w-full max-w-[370px]">
+            <div class="bg-primary/5 text-primary mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded">
+              <PhoneIcon class="fill-current" />
+            </div>
+            <div class="w-full">
+              <h4 class="mb-1 text-xl font-bold text-dark dark:text-white">Phone Number</h4>
+              <p class="text-base text-body-color dark:text-dark-6">{items.phone}</p>
+            </div>
+          </div>
+
+          <div class="mb-8 flex w-full max-w-[370px]">
+            <div class="bg-primary/5 text-primary mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded">
+              <EmailIcon class="fill-current" />
+            </div>
+            <div class="w-full">
+              <h4 class="mb-1 text-xl font-bold text-dark dark:text-white">Email Address</h4>
+              <p class="text-base text-body-color dark:text-dark-6">{items.email}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full px-4 lg:w-1/2 xl:w-5/12">
+        <div class="relative p-8 bg-white dark:bg-dark-2 rounded-lg shadow-lg sm:p-12">
+          <form>
+            <div class="mb-6">
+              <input
+                type="text"
+                placeholder="Your Name"
+                class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
+              />
+            </div>
+            <div class="mb-6">
+              <input
+                type="email"
+                placeholder="Your Email"
+                class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
+              />
+            </div>
+            <div class="mb-6">
+              <input
+                type="text"
+                placeholder="Your Phone"
+                class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
+              />
+            </div>
+            <div class="mb-6">
+              <textarea
+                rows="6"
+                placeholder="Your Message"
+                class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none"
+              ></textarea>
+            </div>
+            <div>
+              <button
+                type="submit"
+                class="w-full rounded border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90"
+              >
+                Send Message
+              </button>
+            </div>
+          </form>
+
+          {/* Decorative Elements */}
+          <div>
+            <span class="absolute -top-10 -right-9 z-[-1]">
+              <img src="/assets/patterns/contact-shape.svg" alt="" />
+            </span>
+            <span class="absolute -right-10 top-[90px] z-[-1]">
+              <img src="/assets/patterns/contact-dots-1.svg" alt="" />
+            </span>
+            <span class="absolute -left-7 -bottom-7 z-[-1]">
+              <img src="/assets/patterns/contact-dots-2.svg" alt="" />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

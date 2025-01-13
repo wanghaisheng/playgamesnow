@@ -1,0 +1,25 @@
+{
+  "id": "home-clients",
+  "type": "clients",
+  "sectionMeta": {
+    "sectionTitle": "Our Clients",
+    "sectionHeading": "Trusted by Companies",
+    "sectionDescription": "We work with companies worldwide, helping them build better digital products."
+  },
+  "items": [
+    {
+      "id": "client-01",
+      "name": "TailGrids",
+      "ref": "https://tailgrids.com",
+      "image": "/assets/brands/graygrids.svg",
+      "whiteImage": "/assets/brands/graygrids-white.svg"
+    },
+    {
+      "id": "client-02",
+      "name": "AstroUI",
+      "ref": "https://astroui.com",
+      "image": "/assets/brands/astroui.svg",
+      "whiteImage": "/assets/brands/astroui-white.svg"
+    }
+  ]
+}

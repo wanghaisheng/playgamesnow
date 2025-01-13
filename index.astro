@@ -1,0 +1,26 @@
+---
+// ... imports ...
+
+const homefeature = await getEntry('featuresSection', 'home');
+const homefaq = await getEntry('faqsSection', 'home');
+const homepricing = await getEntry('pricingSection', 'home');
+// ... get other sections as needed
+
+---
+
+<Layout
+  description="Play Astro is a free and open-source Astro template, built for startups, SaaS companies, apps, businesses, and more."
+  title="Free Astro Template and Starter for SaaS, Startup, and App Sites | Play Astro"
+>
+  <Hero />
+  {homefeature && <Features featuresData={homefeature} />}
+  <CTA />
+  <About />
+  {homepricing && <Pricing pricingData={homepricing} />}
+  <Testimonials />
+  {homefaq && <Faq faqData={homefaq} />}
+  <Team />
+  <Blogsection />
+  <Contact />
+  <Clients />
+</Layout>

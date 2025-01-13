@@ -1,0 +1,51 @@
+{
+  "id": "home-howto",
+  "type": "howToPlay",
+  "slides": [
+    {
+      "image": "/assets/images/howto/slide1.jpg",
+      "title": "How to move & boost?",
+      "description": "It's really easy to control your snake! All you need to do is control your direction and the snake will do the rest. Use the speed boost button to go faster! (Speed boost drains your points, so use it wisely.)",
+      "controls": [
+        {
+          "icon": "game-controller",
+          "text": "Use the joystick to move the snake around. You can select different controls in Settings."
+        },
+        {
+          "icon": "lightning",
+          "text": "You can use Speed Burst at the cost of your length."
+        }
+      ]
+    },
+    {
+      "image": "/assets/images/howto/slide2.jpg",
+      "title": "Collect & Grow",
+      "description": "Eat the glowing orbs to grow longer. The bigger you are, the more points you'll score!",
+      "controls": [
+        {
+          "icon": "circle",
+          "text": "Collect glowing orbs to grow"
+        },
+        {
+          "icon": "arrow-fat-up",
+          "text": "Bigger size means more points"
+        }
+      ]
+    },
+    {
+      "image": "/assets/images/howto/slide3.jpg",
+      "title": "Compete & Win",
+      "description": "Challenge other players and climb the leaderboard. Can you become the longest snake?",
+      "controls": [
+        {
+          "icon": "trophy",
+          "text": "Compete with other players"
+        },
+        {
+          "icon": "chart-line-up",
+          "text": "Climb the global rankings"
+        }
+      ]
+    }
+  ]
+}

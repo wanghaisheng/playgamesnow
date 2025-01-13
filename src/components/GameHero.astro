@@ -1,0 +1,128 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  data: CollectionEntry<'sections'>;
+}
+
+const { data } = Astro.props;
+const { game } = data.data;
+---
+
+<section class="bg-white dark:bg-dark-2 relative">
+  <div class="container">
+    <!-- Game Container -->
+    <div class="relative aspect-video w-full max-w-6xl mx-auto bg-dark-2 rounded-lg overflow-hidden">
+      <!-- Game Iframe -->
+      <iframe
+        src={game.iframeUrl}
+        title={game.title}
+        class="w-full h-full border-0"
+        allow="fullscreen; autoplay; encrypted-media"
+        loading="lazy"
+      >
+      </iframe>
+
+      <!-- Controls Overlay -->
+      <div class="absolute top-4 right-4 flex items-center gap-2">
+        {game.controls?.sound && (
+          <button
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-dark/80 text-white hover:bg-primary transition-colors"
+            aria-label="Toggle sound"
+            data-control="sound"
+          >
+            <Icon name="ph:speaker-high" class="w-5 h-5" />
+          </button>
+        )}
+        
+        {game.controls?.fullscreen && (
+          <a
+            href={game.fullscreenUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-dark/80 text-white hover:bg-primary transition-colors"
+            aria-label="Play fullscreen"
+          >
+            <Icon name="ph:arrows-out" class="w-5 h-5" />
+          </a>
+        )}
+
+        {game.controls?.reportIssue && (
+          <button
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-dark/80 text-white hover:bg-primary transition-colors"
+            aria-label="Report issue"
+            data-control="report"
+          >
+            <Icon name="ph:flag" class="w-5 h-5" />
+          </button>
+        )}
+      </div>
+    </div>
+
+    <!-- Game Info -->
+    <div class="mt-6 flex flex-col md:flex-row items-start gap-6 max-w-6xl mx-auto">
+      <div class="flex-1">
+        <h1 class="text-3xl font-bold text-dark dark:text-white mb-2">
+          {game.title}
+        </h1>
+        <p class="text-body-color dark:text-dark-6">
+          {game.description}
+        </p>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="flex items-center gap-6">
+        <div class="flex items-center">
+          <Icon name="ph:star" class="w-6 h-6 text-yellow-500" />
+          <span class="ml-1 font-semibold text-dark dark:text-white">
+            {game.quickStats.rating}
+          </span>
+        </div>
+
+        <div class="flex items-center">
+          <Icon name="ph:game-controller" class="w-6 h-6 text-primary" />
+          <span class="ml-1 font-semibold text-dark dark:text-white">
+            {new Intl.NumberFormat('en-US', { notation: 'compact' }).format(game.quickStats.plays)}
+          </span>
+        </div>
+
+        {game.quickStats.favorites && (
+          <div class="flex items-center">
+            <Icon name="ph:heart" class="w-6 h-6 text-red-500" />
+            <span class="ml-1 font-semibold text-dark dark:text-white">
+              {new Intl.NumberFormat('en-US', { notation: 'compact' }).format(game.quickStats.favorites)}
+            </span>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Handle sound toggle
+  const soundBtn = document.querySelector('[data-control="sound"]');
+  let isMuted = false;
+
+  soundBtn?.addEventListener('click', () => {
+    isMuted = !isMuted;
+    const iframe = document.querySelector('iframe');
+    if (iframe) {
+      // Post message to iframe to toggle sound
+      iframe.contentWindow?.postMessage({ type: 'toggleSound', muted: isMuted }, '*');
+    }
+    // Update icon
+    const icon = soundBtn.querySelector('svg');
+    if (icon) {
+      icon.setAttribute('name', isMuted ? 'ph:speaker-slash' : 'ph:speaker-high');
+    }
+  });
+
+  // Handle report issue
+  const reportBtn = document.querySelector('[data-control="report"]');
+  reportBtn?.addEventListener('click', () => {
+    // Implement your report modal/form here
+    console.log('Report issue clicked');
+  });
+</script>

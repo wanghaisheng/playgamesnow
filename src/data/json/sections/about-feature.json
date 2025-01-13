@@ -1,0 +1,27 @@
+{
+  "id": "about-feature",
+  "type": "features",
+  "sectionMeta": {
+  "sectionTitle": "Features",
+  "sectionHeading": "Main Features Of Play",
+    "sectionDescription": "There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
+    },
+  "items": [
+    {
+      "id": "features-01",
+      "icon": "assets/features/icon-01.svg",
+      "title": "Free and Open-Source",
+      "ref": "javascript:void(0)",
+      "refTitle": "Learn More",
+      "description": "Lorem Ipsum is simply dummy text of the printing and industry."
+    },
+    {
+      "id": "features-02",
+      "icon": "assets/features/icon-02.svg",
+      "title": "Multipurpose Template",
+      "ref": "javascript:void(0)",
+      "refTitle": "Learn More",
+      "description": "Lorem Ipsum is simply dummy text of the printing and industry."
+}
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "id": "home-pricing",
+  "type": "pricing",
+  "sectionMeta": {
+    "sectionTitle": "Pricing Plans",
+    "sectionHeading": "Choose Your Plan",
+    "sectionDescription": "Select the perfect plan for your needs. Upgrade, downgrade, or cancel anytime."
+  },
+  "items": [
+    {
+      "id": "starter",
+      "packageName": "Starter",
+      "price": "29",
+      "subtitle": "/month",
+      "btn": "Get Started",
+      "purchaseLink": "/purchase/starter",
+      "popular": false,
+      "offerlist": [
+        {
+          "title": "Up to 5 users"
+        },
+        {
+          "title": "Basic support"
+        },
+        {
+          "title": "5GB storage"
+        },
+        {
+          "title": "Basic features"
+        }
+      ]
+    },
+    {
+      "id": "business",
+      "packageName": "Business",
+      "price": "99",
+      "subtitle": "/month",
+      "btn": "Start Free Trial",
+      "purchaseLink": "/purchase/business",
+      "popular": true,
+      "offerlist": [
+        {
+          "title": "Up to 25 users"
+        },
+        {
+          "title": "Priority support"
+        },
+        {
+          "title": "25GB storage"
+        },
+        {
+          "title": "Advanced features"
+        },
+        {
+          "title": "Custom integrations"
+        }
+      ]
+    },
+    {
+      "id": "enterprise",
+      "packageName": "Enterprise",
+      "price": "199",
+      "subtitle": "/month",
+      "btn": "Contact Us",
+      "purchaseLink": "/contact",
+      "popular": false,
+      "offerlist": [
+        {
+          "title": "Unlimited users"
+        },
+        {
+          "title": "24/7 support"
+        },
+        {
+          "title": "Unlimited storage"
+        },
+        {
+          "title": "All features"
+        },
+        {
+          "title": "Custom development"
+        },
+        {
+          "title": "SLA guarantee"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "id": "game",
+  "type": "game",
+  "sectionMeta": {
+    "sectionTitle": "Our Games",
+    "sectionHeading": "Popular Games",
+    "sectionDescription": "Explore our collection of exciting games designed for all ages and interests."
+  },
+  "items": [
+    {
+      "id": "game-1",
+      "title": "Adventure Quest",
+      "category": "Adventure",
+      "rating": 4.8,
+      "players": "1-4 Players",
+      "image": "/assets/images/games/adventure-quest.jpg",
+      "href": "/games/adventure-quest",
+      "downloadCount": "1M+",
+      "platforms": ["android", "ios", "web"],
+      "tags": ["RPG", "Multiplayer", "Fantasy"],
+      "description": "Embark on an epic journey through mystical lands and face challenging quests."
+    },
+    {
+      "id": "game-2",
+      "title": "Speed Racing",
+      "category": "Racing",
+      "rating": 4.6,
+      "players": "1-8 Players",
+      "image": "/assets/images/games/speed-racing.jpg",
+      "href": "/games/speed-racing",
+      "downloadCount": "500K+",
+      "platforms": ["android", "ios"],
+      "tags": ["Racing", "Multiplayer", "Sports"],
+      "description": "Experience high-speed thrills in this action-packed racing game."
+    },
+    {
+      "id": "game-3",
+      "title": "Puzzle Master",
+      "category": "Puzzle",
+      "rating": 4.9,
+      "players": "Single Player",
+      "image": "/assets/images/games/puzzle-master.jpg",
+      "href": "/games/puzzle-master",
+      "downloadCount": "2M+",
+      "platforms": ["android", "ios", "web"],
+      "tags": ["Puzzle", "Brain Training", "Casual"],
+      "description": "Challenge your mind with increasingly difficult puzzles and brain teasers."
+    },
+    {
+      "id": "game-4",
+      "title": "City Builder",
+      "category": "Simulation",
+      "rating": 4.7,
+      "players": "Single Player",
+      "image": "/assets/images/games/city-builder.jpg",
+      "href": "/games/city-builder",
+      "downloadCount": "750K+",
+      "platforms": ["android", "ios", "pc"],
+      "tags": ["Simulation", "Strategy", "Building"],
+      "description": "Build and manage your own city in this engaging simulation game."
+    }
+  ],
+  "filters": {
+    "categories": [
+      "All",
+      "Adventure",
+      "Racing",
+      "Puzzle",
+      "Simulation",
+      "Strategy",
+      "Sports"
+    ],
+    "platforms": [
+      "android",
+      "ios",
+      "web",
+      "pc"
+    ]
+  }
+}

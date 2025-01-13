@@ -11,21 +11,35 @@ import Team from '../components/Team.astro';
 import Contact from '../components/Contactsection.astro';
 import CTA from '../components/CTAsection.astro';
 import Blogsection from '../components/Blogsection.astro';
+import Game  from "../components/Game.astro"
+import { getCollection, getEntry } from 'astro:content';
+
+// Get all section data
+const homeFeature = await getEntry('sections', 'home-feature');
+const homeFaq = await getEntry('sections', 'home-faq');
+const homePricing = await getEntry('sections', 'home-pricing');
+const homeTestimonials = await getEntry('sections', 'home-testimonials');
+const homeTeam = await getEntry('sections', 'home-team');
+const homeClients = await getEntry('sections', 'home-clients');
+const homeContact = await getEntry('sections', 'home-contact');
+const homeHero = await getEntry('sections', 'home-hero');
+const homeCta = await getEntry('sections', 'home-cta');
+const homeGame= await getEntry('sections','home-game')
 ---
 
 <Layout
   description="Play Astro is a free and open-source Astro template, built for startups, SaaS companies, apps, businesses, and more."
   title="Free Astro Template and Starter for SaaS, Startup, and App Sites | Play Astro"
 >
-  <Hero />
-  <Features />
+  {homeHero && <Hero data={homeHero} />}
+  {homeFeature && <Features data={homeFeature} />}
+  {homeCta && <CTA data={homeCta} />}
   <About />
-  <CTA />
-  <Pricing />
-  <Testimonials />
-  <Faq />
-  <Team />
+  {homePricing && <Pricing data={homePricing} />}
+  {homeTestimonials && <Testimonials data={homeTestimonials} />}
+  {homeFaq && <Faq data={homeFaq} />}
+  {homeTeam && <Team data={homeTeam} />}
   <Blogsection />
-  <Contact />
-  <Clients />
+  {homeContact && <Contact data={homeContact} />}
+  {homeClients && <Clients data={homeClients} />}
 </Layout>

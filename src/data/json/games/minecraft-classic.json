@@ -1,0 +1,304 @@
+{
+  "id": "minecraft-classic",
+  "slug": "minecraft-classic",
+  "title": "Minecraft Classic",
+  "image": "/games/minecraft/cover.jpg",
+  "href": "/games/minecraft-classic",
+  "platforms": ["web", "pc"],
+  "rating": 4.8,
+  "category": "Adventure",
+  "featured": true,
+  "meta": {
+    "title": "Play Minecraft Classic Online - Free Browser Version",
+    "description": "Experience the original Minecraft Classic in your browser. Build, create, and explore in this iconic sandbox game that started it all.",
+    "keywords": ["minecraft", "sandbox", "building", "classic", "browser game"],
+    "ogImage": "/games/minecraft/og-image.jpg",
+    "embedConfig": {
+      "defaultControls": true,
+      "autoplay": false,
+      "preload": "auto",
+      "aspectRatio": "16:9",
+      "placeholder": "/games/minecraft/placeholder.jpg"
+    }
+  },
+  "sections": {
+    "hero": {
+      "description": "Minecraft Classic is the original version of the world-famous sandbox game, now playable directly in your browser. Build anything you can imagine using simple blocks in a limitless world.",
+      "embed": {
+        "iframeUrl": "https://example.com/games/minecraft-classic/embed",
+        "fullscreenUrl": "https://example.com/games/minecraft-classic/fullscreen",
+        "thumbnail": "/games/minecraft/thumbnail.jpg",
+        "responsive": true,
+        "sandbox": [
+          "allow-scripts",
+          "allow-same-origin",
+          "allow-popups"
+        ],
+        "loading": "eager",
+        "communication": {
+          "enabled": true,
+          "targetOrigin": "https://example.com",
+          "events": ["save", "load", "achievement"]
+        }
+      },
+      "quickStats": {
+        "rating": 4.8,
+        "plays": 1500000,
+        "favorites": 250000,
+        "reviews": 45000,
+        "lastPlayed": "2024-01-20T12:00:00Z",
+        "playTime": "25m"
+      },
+      "controls": {
+        "enabled": true,
+        "position": "bottom",
+        "theme": {
+          "style": "default",
+          "opacity": 0.9
+        },
+        "items": {
+          "fullscreen": true,
+          "sound": true,
+          "report": true
+        }
+      },
+      "state": {
+        "loading": {
+          "showSpinner": true,
+          "loadingText": "Loading Minecraft Classic..."
+        },
+        "error": {
+          "showError": true,
+          "retryAttempts": 3,
+          "fallbackImage": "/games/minecraft/error.jpg"
+        }
+      }
+    },
+    "info": {
+      "description": "Minecraft Classic is the original version of the world-famous sandbox game that revolutionized gaming. Experience the game that started it all, now playable directly in your browser. Build, create, and explore in an infinite world made entirely of blocks.",
+      "shortDescription": "Build and explore in the original Minecraft experience",
+      "tags": ["sandbox", "building", "multiplayer", "survival", "creative"],
+      "releaseDate": "2009-05-17",
+      "lastUpdated": "2024-01-15",
+      "version": "0.30",
+      "size": "15MB",
+      "languages": ["en", "es", "fr", "de", "it"],
+      "ageRating": "7+",
+      "developer": {
+        "name": "Mojang Studios",
+        "url": "https://www.minecraft.net",
+        "logo": "/developers/mojang/logo.png",
+        "description": "Creators of Minecraft",
+        "socialLinks": {
+          "website": "https://www.minecraft.net",
+          "discord": "https://discord.gg/minecraft",
+          "twitter": "https://twitter.com/minecraft",
+          "youtube": "https://youtube.com/minecraft"
+        }
+      },
+      "publisher": {
+        "name": "Microsoft Studios",
+        "url": "https://www.xbox.com/games",
+        "logo": "/publishers/microsoft/logo.png"
+      }
+    },
+    "media": {
+      "screenshots": [
+        {
+          "url": "/games/minecraft/screenshot1.jpg",
+          "thumbnail": "/games/minecraft/thumb1.jpg",
+          "caption": "Build anything in Creative mode",
+          "type": "image"
+        },
+        {
+          "url": "/games/minecraft/screenshot2.jpg",
+          "thumbnail": "/games/minecraft/thumb2.jpg",
+          "caption": "Explore vast worlds",
+          "type": "image"
+        },
+        {
+          "url": "/games/minecraft/trailer.mp4",
+          "thumbnail": "/games/minecraft/trailer-thumb.jpg",
+          "caption": "Gameplay Trailer",
+          "type": "video",
+          "duration": "2:15"
+        }
+      ]
+    },
+    "features": {
+      "main": [
+        {
+          "title": "Creative Mode",
+          "description": "Build anything you can imagine with unlimited blocks",
+          "icon": "build"
+        },
+        {
+          "title": "Multiplayer",
+          "description": "Play with friends in real-time",
+          "icon": "group"
+        },
+        {
+          "title": "Classic Gameplay",
+          "description": "Experience the original Minecraft mechanics",
+          "icon": "gamepad"
+        }
+      ],
+      "additional": [
+        "32 different block types",
+        "Infinite worlds to explore",
+        "Classic crafting system",
+        "Original textures and graphics",
+        "Browser-based multiplayer"
+      ]
+    },
+    "reviews": {
+      "summary": {
+        "average": 4.8,
+        "total": 45000,
+        "distribution": [35000, 8000, 1500, 400, 100]
+      },
+      "featured": [
+        {
+          "id": "review1",
+          "user": {
+            "name": "BlockMaster",
+            "avatar": "/avatars/user1.jpg",
+            "verified": true
+          },
+          "rating": 5,
+          "content": "The classic version brings back so many memories. Love that I can play it directly in my browser!",
+          "date": "2024-01-15T10:30:00Z",
+          "likes": 150,
+          "platform": "web",
+          "playTime": "100h+"
+        },
+        {
+          "id": "review2",
+          "user": {
+            "name": "CreativeCrafter",
+            "avatar": "/avatars/user2.jpg"
+          },
+          "rating": 4,
+          "content": "Simple but addictive. Perfect for quick building sessions.",
+          "date": "2024-01-10T15:45:00Z",
+          "likes": 89,
+          "platform": "web",
+          "playTime": "20h"
+        }
+      ]
+    },
+    "similar": {
+      "byCategory": [
+        {
+          "id": "roblox",
+          "slug": "roblox",
+          "title": "Roblox",
+          "image": "/games/roblox/cover.jpg",
+          "href": "/games/roblox",
+          "platforms": ["web", "pc"],
+          "rating": 4.5,
+          "category": "Adventure",
+          "featured": true
+        }
+      ],
+      "byDeveloper": [
+        {
+          "id": "dungeons",
+          "slug": "minecraft-dungeons",
+          "title": "Minecraft Dungeons",
+          "image": "/games/dungeons/cover.jpg",
+          "href": "/games/minecraft-dungeons",
+          "platforms": ["pc"],
+          "rating": 4.3,
+          "category": "Action",
+          "featured": false
+        }
+      ],
+      "recommended": [
+        {
+          "id": "terraria",
+          "slug": "terraria",
+          "title": "Terraria",
+          "image": "/games/terraria/cover.jpg",
+          "href": "/games/terraria",
+          "platforms": ["web", "pc"],
+          "rating": 4.7,
+          "category": "Adventure",
+          "featured": true
+        }
+      ]
+    },
+    "requirements": {
+      "minimum": {
+        "os": ["Windows 7", "macOS 10.12", "Chrome OS"],
+        "processor": "Intel Core i3 or equivalent",
+        "memory": "4 GB RAM",
+        "graphics": "Intel HD Graphics 4000",
+        "storage": "1 GB available space",
+        "additional": [
+          "Keyboard and mouse",
+          "Active internet connection",
+          "Modern web browser"
+        ]
+      },
+      "recommended": {
+        "os": ["Windows 10", "macOS 10.15", "Chrome OS"],
+        "processor": "Intel Core i5 or equivalent",
+        "memory": "8 GB RAM",
+        "graphics": "Intel HD Graphics 5000 or better",
+        "storage": "2 GB available space",
+        "additional": [
+          "Stable internet connection (5+ Mbps)",
+          "Chrome or Firefox latest version"
+        ]
+      }
+    },
+    "howToPlay": [
+      {
+        "image": "/games/minecraft/tutorial1.jpg",
+        "title": "Basic Controls",
+        "description": "Learn how to move and interact with the world",
+        "controls": [
+          {
+            "key": "W A S D",
+            "action": "Move",
+            "icon": "movement",
+            "description": "Use WASD keys to move around"
+          },
+          {
+            "key": "SPACE",
+            "action": "Jump",
+            "icon": "jump"
+          },
+          {
+            "key": "LEFT CLICK",
+            "action": "Break blocks",
+            "icon": "break"
+          },
+          {
+            "key": "RIGHT CLICK",
+            "action": "Place blocks",
+            "icon": "build"
+          }
+        ]
+      },
+      {
+        "image": "/games/minecraft/tutorial2.jpg",
+        "title": "Building Basics",
+        "description": "Learn how to build your first structure",
+        "controls": [
+          {
+            "key": "1-9",
+            "action": "Select blocks",
+            "icon": "inventory"
+          },
+          {
+            "key": "E",
+            "action": "Open inventory",
+            "icon": "backpack"
+          }
+        ]
+      }
+    ]
+  }
+}

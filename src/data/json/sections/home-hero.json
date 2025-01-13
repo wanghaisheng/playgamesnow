@@ -1,0 +1,41 @@
+{
+  "id": "home-hero",
+  "type": "hero",
+  "sectionMeta": {
+    "heading": "Build Your Website with ",
+    "headingHighlight": "Thai-Inspired Design",
+    "description": "Create stunning websites with our modern platform that incorporates beautiful Thai design elements and cultural aesthetics.",
+    "heroImage": "/assets/images/hero/hero-image.svg",
+    "backgroundVideo": "/assets/videos/hero-bg.mp4"
+  },
+  "items": {
+    "primaryButton": {
+      "text": "Get Started",
+      "href": "#"
+    },
+    "secondaryButton": {
+      "text": "Learn More",
+      "href": "#"
+    },
+    "brands": {
+      "title": "Trusted By",
+      "items": [
+        {
+          "name": "Brand One",
+          "image": "/assets/images/brands/brand-1.svg",
+          "href": "#"
+        },
+        {
+          "name": "Brand Two",
+          "image": "/assets/images/brands/brand-2.svg",
+          "href": "#"
+        },
+        {
+          "name": "Brand Three",
+          "image": "/assets/images/brands/brand-3.svg",
+          "href": "#"
+        }
+      ]
+    }
+  }
+}

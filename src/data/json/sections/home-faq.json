@@ -1,0 +1,21 @@
+{
+  "id": "home-faq",
+  "type": "faqs",
+  "sectionMeta": {
+    "sectionTitle": "FAQ",
+    "sectionHeading": "Any Questions? Look Here",
+    "sectionDescription": "There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
+  },
+  "items": [
+    {
+      "id": "faq-01",
+      "title": "Is TailGrids Well-documented?",
+      "description": "It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content ui/ux strategy that we do writing your first blog post."
+    },
+    {
+      "id": "faq-02",
+      "title": "Do I need to pay more for customer support?",
+      "description": "No, our customer support is included with all our plans. We provide 24/7 support to help you with any questions or issues you may have."
+    }
+  ]
+}

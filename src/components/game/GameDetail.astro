@@ -1,0 +1,107 @@
+---
+import type { GameDetail } from '../../schemas/game.schema';
+import GamePlayer from './GamePlayer.astro';
+import GameInfo from './GameInfo.astro';
+import GameFeatures from './GameFeatures.astro';
+import GameMedia from './GameMedia.astro';
+import GameHowTo from './GameHowTo.astro';
+import GameReviews from './GameReviews.astro';
+import GameSimilar from './GameSimilar.astro';
+
+interface Props {
+  game: GameDetail;
+}
+
+const { game } = Astro.props;
+const { display, content, social, related } = game;
+
+// Helper to check if section should be displayed
+const showSection = (section: string) => 
+  display.sections.includes(section as any);
+---
+
+<article class="game-detail">
+  <!-- Main Content -->
+  <div class="game-detail-layout" data-sidebar={display.layout.sidebar}>
+    <!-- Main Column -->
+    <div class="main-column space-y-8">
+      {showSection('hero') && (
+        <GamePlayer 
+          data={{
+            id: game.id,
+            type: 'gameDetailHero',
+            game: {
+              ...game,
+              embed: content.embed
+            }
+          }}
+        />
+      )}
+
+      {showSection('info') && (
+        <GameInfo 
+          title={game.title}
+          details={game.details}
+          meta={game.meta}
+        />
+      )}
+
+      {showSection('features') && (
+        <GameFeatures features={content.features} />
+      )}
+
+      {showSection('media') && (
+        <GameMedia media={content.media} />
+      )}
+
+      {showSection('howToPlay') && (
+        <GameHowTo tutorials={content.howToPlay} />
+      )}
+
+      {showSection('reviews') && (
+        <GameReviews reviews={social.reviews} />
+      )}
+    </div>
+
+    <!-- Sidebar -->
+    {display.layout.similarGames.position === 'sidebar' && (
+      <aside class="game-sidebar">
+        <GameSimilar 
+          related={related}
+          limit={display.layout.similarGames.limit}
+        />
+      </aside>
+    )}
+  </div>
+
+  <!-- Bottom Similar Games -->
+  {display.layout.similarGames.position === 'bottom' && 
+   showSection('similar') && (
+    <GameSimilar 
+      related={related}
+      limit={display.layout.similarGames.limit}
+    />
+  )}
+</article>
+
+<style>
+  .game-detail-layout {
+    @apply container mx-auto px-4 py-8;
+    display: grid;
+    gap: 2rem;
+  }
+
+  .game-detail-layout[data-sidebar="right"] {
+    grid-template-columns: 1fr 18rem;
+  }
+
+  .game-detail-layout[data-sidebar="left"] {
+    grid-template-columns: 18rem 1fr;
+  }
+
+  @media (max-width: 1024px) {
+    .game-detail-layout {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

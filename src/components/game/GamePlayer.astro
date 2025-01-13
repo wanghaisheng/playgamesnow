@@ -1,0 +1,203 @@
+---
+import { gameSchemas.detailHero as GameDetailHero } from '../../schemas/game.schema';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  data: GameDetailHero;
+  class?: string;
+}
+
+const { data, class: className } = Astro.props;
+const { game } = data;
+const { embed, controls, state } = game;
+
+// Helper to get loading state configuration
+const loadingState = state?.loading ?? { showSpinner: true };
+const errorState = state?.error ?? { 
+  showError: true, 
+  retryAttempts: 3,
+  retryDelay: 1000 
+};
+---
+
+<div 
+  id={`game-player-${data.id}`} 
+  class:list={[
+    'game-player relative',
+    embed.responsive ? `aspect-${game.meta.embedConfig?.aspectRatio?.replace(':', '-') ?? '16-9'}` : '',
+    className
+  ]}
+  data-config={JSON.stringify({
+    id: data.id,
+    controls: controls,
+    state: state,
+    communication: embed.communication
+  })}
+>
+  <!-- Loading State -->
+  {loadingState.showSpinner && (
+  <div class="game-loading absolute inset-0 bg-dark/80 flex items-center justify-center">
+      {loadingState.customSpinner ? (
+        <Fragment set:html={loadingState.customSpinner} />
+      ) : (
+        <Icon 
+          name="loading" 
+      class:list={[
+            'w-8 h-8 animate-spin',
+            loadingState.spinnerColor ?? 'text-primary'
+          ]}
+        />
+      )}
+      {loadingState.loadingText && (
+        <p class="mt-2 text-white">{loadingState.loadingText}</p>
+      )}
+    </div>
+  )}
+
+  <!-- Error State -->
+  {errorState.showError && (
+    <div class="game-error hidden absolute inset-0 bg-dark/90 flex flex-col items-center justify-center text-white">
+      {errorState.customError ? (
+        <div class="text-center">
+          <h3 class="text-xl font-bold mb-2">{errorState.customError.title}</h3>
+          <p class="mb-4">{errorState.customError.message}</p>
+          <button class="retry-button px-4 py-2 bg-primary rounded-lg">
+            {errorState.customError.action}
+          </button>
+</div>
+      ) : (
+        <>
+          <Icon name="warning" class="w-12 h-12 text-red-500 mb-4" />
+          <p class="text-center px-4 mb-4">Unable to load the game</p>
+          <button class="retry-button px-4 py-2 bg-primary rounded-lg">
+            Try Again
+          </button>
+        </>
+      )}
+    </div>
+  )}
+
+  <!-- Custom Overlay -->
+  {state?.overlay?.enabled && (
+    <div 
+      class:list={[
+        'game-overlay absolute inset-0 bg-dark/50 flex items-center justify-center',
+        state.overlay.dismissable ? 'cursor-pointer' : ''
+      ]}
+    >
+      <div 
+        class:list={[
+          'text-white text-center p-4',
+          {
+            'mt-auto': state.overlay.position === 'bottom',
+            'mb-auto': state.overlay.position === 'top'
+          }
+        ]}
+      >
+        {state.overlay.content}
+      </div>
+    </div>
+  )}
+
+  <!-- Controls -->
+  {controls.enabled && (
+    <div 
+      class:list={[
+        'game-controls absolute z-10 flex items-center gap-2 p-2',
+        {
+          'top-0': controls.position === 'top',
+          'bottom-0': controls.position === 'bottom'
+        },
+        controls.theme?.background ?? 'bg-dark/80'
+      ]}
+      style={{
+        '--controls-opacity': controls.theme?.opacity ?? 0.9,
+        '--controls-fg': controls.theme?.foreground ?? 'white'
+      }}
+    >
+      {controls.items.sound && (
+        <button
+          class="control-button"
+          data-control="sound"
+          title="Toggle sound"
+        >
+          <Icon name="volume-up" class="w-5 h-5" />
+        </button>
+      )}
+      
+      {controls.items.fullscreen && (
+        <button
+          class="control-button"
+          data-control="fullscreen"
+          title="Toggle fullscreen"
+        >
+          <Icon name="expand" class="w-5 h-5" />
+        </button>
+      )}
+
+      {controls.items.custom?.map((control) => (
+        <button
+          class="control-button"
+          data-control={control.id}
+          title={control.tooltip}
+          class:list={[!control.visible && 'hidden']}
+        >
+          <Icon name={control.icon} class="w-5 h-5" />
+          {control.label && <span class="ml-1">{control.label}</span>}
+        </button>
+      ))}
+    </div>
+  )}
+
+  <!-- Game Iframe -->
+  <iframe
+    src={embed.iframeUrl}
+    width="100%"
+    height="100%"
+    title={game.title}
+    loading={embed.loading}
+    sandbox={embed.sandbox.join(' ')}
+    allow="fullscreen"
+    class:list={[
+      'game-iframe',
+      embed.responsive ? 'absolute inset-0 w-full h-full' : ''
+    ]}
+  />
+</div>
+
+<script>
+  class GamePlayerController {
+    // ... (implement the controller using the enhanced schema)
+  }
+
+  // Initialize all game players
+  document.querySelectorAll('.game-player').forEach(container => {
+    new GamePlayerController(container as HTMLElement);
+  });
+</script>
+
+<style>
+  .game-player {
+    background: theme(colors.dark.DEFAULT);
+  }
+
+  .control-button {
+    @apply p-2 rounded-lg transition-colors;
+    color: var(--controls-fg, white);
+    opacity: var(--controls-opacity, 0.9);
+  }
+
+  .control-button:hover {
+    @apply bg-white/20;
+  }
+
+  .game-loading,
+  .game-error,
+  .game-overlay {
+    @apply transition-opacity duration-300;
+  }
+
+  .hidden {
+    @apply opacity-0 pointer-events-none;
+  }
+</style>

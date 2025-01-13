@@ -1,0 +1,279 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import type { GameSection } from '../content.config';
+interface Props {
+  data: CollectionEntry<'sections'>;
+}
+
+const { data } = Astro.props;
+const { sectionMeta, items, filters, settings = {} } = data.data;
+
+const {
+  itemsPerPage = 8,
+  defaultSort = 'rating',
+  showFilters = true,
+  showSort = true,
+  showPagination = true,
+  gridColumns = { sm: 1, md: 2, lg: 3, xl: 3 }
+} = settings;
+---
+
+<section id="games" class="pt-20 lg:pt-[120px] pb-12 lg:pb-[90px] bg-white dark:bg-dark">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="flex flex-wrap -mx-4">
+      <div class="w-full px-4">
+        <div class="mx-auto mb-12 max-w-[510px] text-center lg:mb-20">
+          <span class="block mb-2 text-lg font-semibold text-primary">
+            {sectionMeta.sectionTitle}
+          </span>
+          <h2 class="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px]">
+            {sectionMeta.sectionHeading}
+          </h2>
+          <p class="text-base text-body-color dark:text-dark-6">
+            {sectionMeta.sectionDescription}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters and Sort -->
+    {(showFilters || showSort) && (
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-12">
+        {showFilters && (
+      <div class="flex flex-wrap justify-center gap-3">
+        {filters.categories.map((category) => (
+          <button
+            class:list={[
+              "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300",
+              "hover:bg-primary hover:text-white",
+              {
+                "bg-primary text-white": category === "All",
+                "bg-gray-100 dark:bg-dark-2 text-dark dark:text-dark-6": category !== "All"
+              }
+            ]}
+            data-category={category}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+        )}
+
+        {showSort && (
+                <div class="flex items-center gap-2">
+            <label class="text-sm text-dark dark:text-dark-6">Sort by:</label>
+            <select
+              class="px-3 py-2 text-sm rounded-md border border-gray-200 dark:border-dark-3 bg-white dark:bg-dark-2 text-dark dark:text-white"
+              data-sort
+      >
+              <option value="rating">Rating</option>
+              <option value="downloads">Downloads</option>
+              <option value="releaseDate">Release Date</option>
+              <option value="title">Title</option>
+            </select>
+    </div>
+        )}
+  </div>
+    )}
+
+    <!-- Games Grid -->
+    <div 
+      class="grid gap-6"
+      style={`
+        grid-template-columns: repeat(${gridColumns.sm}, 1fr);
+        @media (min-width: 768px) { grid-template-columns: repeat(${gridColumns.md}, 1fr); }
+        @media (min-width: 1024px) { grid-template-columns: repeat(${gridColumns.lg}, 1fr); }
+        @media (min-width: 1280px) { grid-template-columns: repeat(${gridColumns.xl}, 1fr); }
+      `}
+    >
+      {items.map((game) => (
+        <div class="game-card" 
+          data-category={game.category}
+          data-rating={game.rating}
+          data-downloads={game.downloadCount}
+          data-releaseDate={game.releaseDate}
+          data-title={game.title}
+        >
+          <div class="overflow-hidden rounded-lg bg-white dark:bg-dark-2 shadow-1 duration-300 hover:shadow-3 dark:shadow-card dark:hover:shadow-3">
+            <a href={game.href} class="relative block">
+              <img
+                src={game.image}
+                alt={game.title}
+                class="w-full h-[200px] object-cover"
+              />
+              <div class="absolute top-4 right-4 flex gap-2">
+                {game.platforms.map(platform => (
+                  <span class="w-8 h-8 flex items-center justify-center rounded-full bg-dark/80 text-white">
+                    <Icon name={`mdi:${platform}`} class="w-5 h-5" />
+                  </span>
+      ))}
+    </div>
+            </a>
+            <div class="p-6">
+              <h3 class="mb-3 text-xl font-bold text-dark dark:text-white">
+                <a href={game.href} class="hover:text-primary">
+                  {game.title}
+                </a>
+              </h3>
+              <p class="mb-4 text-base text-body-color dark:text-dark-6">
+                {game.description}
+              </p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="flex items-center">
+                    <Icon name="mdi:star" class="w-5 h-5 text-yellow-500" />
+                    <span class="ml-1 text-sm text-dark dark:text-dark-6">{game.rating}</span>
+      </div>
+                  <span class="text-sm text-body-color dark:text-dark-6">•</span>
+                  <div class="flex items-center">
+                    <Icon name="mdi:download" class="w-5 h-5 text-gray-400" />
+                    <span class="ml-1 text-sm text-dark dark:text-dark-6">{game.downloadCount}</span>
+  </div>
+                </div>
+                {game.price ? (
+                  <span class="text-primary font-semibold">
+                    {game.price.amount > 0 ? `${game.price.currency} ${game.price.amount}` : 'Free'}
+                  </span>
+                ) : (
+                  <span class="text-primary font-semibold">Free</span>
+                )}
+              </div>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {game.tags.map(tag => (
+                  <span class="px-2 py-1 text-xs rounded-full bg-gray-100 dark:bg-dark-3 text-body-color dark:text-dark-6">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Pagination -->
+    {showPagination && items.length > itemsPerPage && (
+      <div class="flex justify-center mt-12">
+        <nav class="flex items-center gap-2" aria-label="Pagination">
+          <button 
+            class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-dark-3 text-dark dark:text-white hover:bg-primary hover:text-white disabled:opacity-50"
+            data-page="prev"
+            disabled
+          >
+            <Icon name="mdi:chevron-left" class="w-5 h-5" />
+          </button>
+          <div class="flex items-center gap-2" data-pages></div>
+          <button 
+            class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-dark-3 text-dark dark:text-white hover:bg-primary hover:text-white"
+            data-page="next"
+          >
+            <Icon name="mdi:chevron-right" class="w-5 h-5" />
+          </button>
+        </nav>
+      </div>
+    )}
+  </div>
+</section>
+
+<script define:vars={{ defaultSort, itemsPerPage }}>
+  // Enhanced filtering and sorting functionality
+  const filterButtons = document.querySelectorAll('[data-category]');
+  const sortSelect = document.querySelector('[data-sort]');
+  const gameCards = document.querySelectorAll('.game-card');
+  const pagesContainer = document.querySelector('[data-pages]');
+  const prevButton = document.querySelector('[data-page="prev"]');
+  const nextButton = document.querySelector('[data-page="next"]');
+  let currentPage = 1;
+
+  function updateGameDisplay() {
+    const category = document.querySelector('[data-category].bg-primary')?.getAttribute('data-category');
+    const sortBy = sortSelect?.value;
+    
+    // Filter and sort games
+    const filteredGames = Array.from(gameCards).filter(card => {
+      const gameCategory = card.getAttribute('data-category');
+      return category === 'All' || category === gameCategory;
+    });
+      
+    if (sortBy) {
+      filteredGames.sort((a, b) => {
+        const valueA = a.getAttribute(`data-${sortBy}`);
+        const valueB = b.getAttribute(`data-${sortBy}`);
+        return sortBy === 'title' ? 
+          valueA.localeCompare(valueB) : 
+          parseFloat(valueB) - parseFloat(valueA);
+      });
+    }
+
+    // Update visibility
+    gameCards.forEach(card => card.style.display = 'none');
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    filteredGames.slice(start, end).forEach(card => card.style.display = 'block');
+
+    // Update pagination
+    if (pagesContainer) {
+      const pageCount = Math.ceil(filteredGames.length / itemsPerPage);
+      pagesContainer.innerHTML = '';
+      
+      for (let i = 1; i <= pageCount; i++) {
+        const button = document.createElement('button');
+        button.className = `w-10 h-10 flex items-center justify-center rounded-lg ${
+          i === currentPage ? 
+          'bg-primary text-white' : 
+          'border border-gray-200 dark:border-dark-3 text-dark dark:text-white hover:bg-primary hover:text-white'
+        }`;
+        button.textContent = i.toString();
+    button.addEventListener('click', () => {
+          currentPage = i;
+      updateGameDisplay();
+    });
+        pagesContainer.appendChild(button);
+  }
+
+      if (prevButton) prevButton.disabled = currentPage === 1;
+      if (nextButton) nextButton.disabled = currentPage === pageCount;
+    }
+  }
+
+  // Event listeners
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.classList.remove('bg-primary', 'text-white'));
+      button.classList.add('bg-primary', 'text-white');
+      currentPage = 1;
+  updateGameDisplay();
+    });
+  });
+
+  if (sortSelect) {
+    sortSelect.addEventListener('change', () => {
+      currentPage = 1;
+      updateGameDisplay();
+    });
+  }
+
+  if (prevButton) {
+    prevButton.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        updateGameDisplay();
+      }
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener('click', () => {
+      const pageCount = Math.ceil(gameCards.length / itemsPerPage);
+      if (currentPage < pageCount) {
+        currentPage++;
+        updateGameDisplay();
+      }
+    });
+  }
+
+  // Initial setup
+  updateGameDisplay();
+</script>

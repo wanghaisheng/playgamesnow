@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AZSection from '../../components/AZSection.astro';
+import { getEntry } from 'astro:content';
+
+const tagsAZ = await getEntry('games', 'tags-az');
+---
+
+<Layout title="All Tags - Browse Games by Tags" description="Browse our collection of games by tags">
+  {tagsAZ && <AZSection data={tagsAZ} />}
+</Layout>
